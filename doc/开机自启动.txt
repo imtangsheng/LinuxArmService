@@ -1,0 +1,21 @@
+Ubuntu_20.4程序开机自启动
+
+chmod 777 /lib/systemd/system/rc-local.service
+vi /lib/systemd/system/rc-local.service
+
+[Install]   
+WantedBy=multi-user.target   
+Alias=rc-local.service
+
+vi /etc/rc.lcoal
+#! /bin/bash
+if [ $(ps -elf | grep run.out | grep -v grep | wc -l) -eq 0 ];then
+	cd /home/ubuntu/hand_mid360_fast/build
+	./run.out &
+fi
+
+chmod 777 /etc/rc.local
+
+ln -s /lib/systemd/system/rc.local.service /etc/systemd/system/ 
+
+

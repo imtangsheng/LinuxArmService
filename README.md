@@ -47,3 +47,8 @@ gdb-multiarch：支持多种架构（x86, ARM, MIPS, RISC-V 等）
 
 aarch64-linux-gnu-gdb：专门用于 ARM64 架构
 ```
+
+- ## [ROS2安装](https://docs.ros.org/en/rolling/Installation/Windows-Install-Binary.html)
+**执行才可以使用ros2的指令**
+
+    call C:\pixi_ws\ros2-windows\local_setup.bat 

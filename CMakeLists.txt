@@ -20,7 +20,7 @@ set(SOURCES
 add_executable(${PROJECT_NAME} ${SOURCES})
 # 设置输出名称和属性
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    OUTPUT_NAME "south2"          # 输出文件基本名称
+    OUTPUT_NAME "AcquisitionServer"     # 输出文件基本名称
     DEBUG_POSTFIX "-d"                  # Debug版本后缀
     RELEASE_POSTFIX ""                  # Release版本无后缀
 )

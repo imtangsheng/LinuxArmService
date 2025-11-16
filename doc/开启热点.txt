@@ -1,0 +1,21 @@
+apt-get install network-manager
+新增静态ip：
+ip addr add 192.168.2.50/24 dev wlan1 broadcast 192.168.2.255
+
+搜索wifi:
+nmcli device wifi list
+
+连接wifi:
+nmcli device wifi connect "bsh_117501" password "99999999"
+
+关闭wifi:
+nmcli r wifi off
+
+开启热点:
+nmcli device wifi hotspot ifname wlan0 con-name mid360wifi ssid Mid360WiFi password south123
+
+关闭热点:
+nmcli device disconnect wlan0
+
+查询状态
+nmcli device status

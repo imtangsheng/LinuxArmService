@@ -1,0 +1,80 @@
+
+1、配置网络：
+network:
+        ethernets:
+                eth0:
+                        dhcp4: false
+                        addresses:
+                                - 172.16.30.45/16   #网线ip
+                                - 192.168.1.50/24   #雷达ip
+                        routes:
+                                - to: 0.0.0.0/0
+                                  via: 172.16.30.254
+                                  metric: 100
+                                - to: 0.0.0.0/
+                                  via: 192.168.1.1
+                                  metric: 100
+                        nameservers:
+                                addresses:
+                                        - 8.8.8.8
+                                        - 144.144.144.144
+        version: 2
+		
+
+2、关闭网络开机自检
+systemctl mask systemd-networkd-wait-online.service
+
+3、依赖库安装
+apt update
+apt install cmake
+apt install libboost-all-dev
+apt install libyaml-cpp-dev
+apt install exfat-*
+apt install libpcap-dev 
+apt-get install libudev-dev
+
+
+4、程序开机自启动
+chmod 777 /lib/systemd/system/rc-local.service
+vi /lib/systemd/system/rc-local.service
+[Install]   
+WantedBy=multi-user.target   
+Alias=rc-local.service
+
+vi /etc/rc.local
+#! /bin/bash
+if [ $(ps -elf | grep run.out | grep -v grep | wc -l) -eq 0 ];then
+	cd /home/ubuntu/escan/program
+	./update.out &
+fi
+
+chmod 777 /etc/rc.local
+ln -s /lib/systemd/system/rc.local.service /etc/systemd/system/ 
+
+5、串口设置
+sudo vim /boot/orangepiEnv.txt
+overlays=uart5
+
+6、蓝牙设置
+#安装连接蓝牙设备软件包
+apt -y install pulseaudio-module-bluetooth
+
+#安装库
+sudo apt-get install bluez
+sudo apt-get install libbluetooth-dev
+
+vi /etc/systemd/system/dbus-org.bluez.service
+
+E4:6A:35:AF:DE:74
+E0:E1:A9:32:B6:82
+
+hciconfig hci0 down
+hciconfig hci0 reset
+hciconfig hci0 up
+hciconfig hci0 piscan
+sdptool add SP
+
+#检测是否成功
+sdptool browse local 
+
+reboot

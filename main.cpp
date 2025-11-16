@@ -1,6 +1,7 @@
 #include <stdio.h>
 int main(int argc, char *argv[])
 {
-   printf("Linux C++ Arm testing\n");
+   printf("Hello World\n");
+   char c = getchar();
    return 0;
 }
